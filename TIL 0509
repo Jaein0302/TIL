@@ -1,0 +1,41 @@
+# TIL
+
+- println 안에 sum++도 가능
+    
+    ```java
+    i++;
+    System.out.println(i);
+    ```
+    
+    ```java
+    System.out.println(i++);
+    ```
+    
+- for문에서 선언을 무조건 하는건 아니다
+    
+    ```java
+    int cnt;	// 이렇게 선언을 먼저하면 같은 메서드 안에서는 선언없이 계속 쓸 수 있음
+    		for (cnt = 1; cnt <= 10; cnt++) {
+    			System.out.println(cnt);
+    		}
+    ```
+    
+- 후순위에 대한 완벽한 이해 (cnt++)
+    
+    ```java
+    while (cnt++ < 10);  // 비교하고나서 증가
+    ```
+    
+- 이중 for문에 대한 이해
+    
+    ```java
+    for (i = 1; i <= 5; i++) {
+    			for (j = 1; j <= i; j++)
+    			System.out.print("*");
+    ```
+    
+    밖에 있는 for문에 5까지 지정해줘야함.
+    
+    처음에 i와 5를 뒤바꿔서 생각했는데 아무것도 안뜸
+    
+- escape
