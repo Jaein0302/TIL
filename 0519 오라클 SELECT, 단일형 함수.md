@@ -1,0 +1,90 @@
+# 0519 / 오라클 SELECT, 단일형 함수
+
+# SQL plus 명령어
+
+- 논리 연산자
+    - **AND :** SELECT * FROM emp WHERE deptno=10 **AND** job='MANAGER';
+    - **OR :** SELECT * FROM emp WHERE deptno=10 **OR** job='MANAGER';
+    - **NOT :** SELECT * FROM emp WHERE **NOT** deptno=10;
+        - WHERE DEPTNO **<>** 10;  → 이렇게도 씀
+- **BETWEEN AND**
+    - select * from emp where sal **between** 2000 **and** 3000;
+- **IN**
+    - select * from emp where comm **in** (300, 500, 1400); → comm이 300 or 500 or 1400
+    - select * from emp where comm **not in** (300, 500, 1400); → comm이 300,500,1400 모두 아닐때
+        - null값은 조회가 안되기 때문에 각별히 조심
+- **LIKE**
+    - 검색하고자 하는 값을 정확히 모를 경우 쓰임
+    - select * from emp where enmae **like ‘F%**’; → F로 시작
+        - **%** : 문자가 없거나 / 하나의 이상의 문자
+        - **_** : 하나의 문자
+    - select * from emp where enmae **not like ‘%A%**’; → A를 포함하지 않음
+- **NULL**
+    - 연산자(=)로 판단이 안됨
+    - select * from emp where comm **is null;**
+- **ORDER BY**
+    - select * from emp **order by** sal **asc**; → asc는 생략가능 / NULL이 가장 마지막에 나옴
+    - select * from emp **order by** sal **desc**;
+    - select * from emp o**rder by sal desc, ename asc;** → sal 같은 사람일경우 오름차순
+
+# 단일 행 함수
+
+- **dual**
+    - 단 하나의 컬럼으로 구성된 테이블
+- 숫자 함수
+    - **ABS** : 절대값을 구한다.
+        - select **ABS(-10)** from dual;
+    - COS : COSINE 값을 반환한다.
+    - EXP : e(2.71828183…)의 n승을 반환한다.
+    - **FLOOR** : n 이하의 가장 큰 정수를 반환합니다.
+        - select **floor(12,3456)** from dual;  → 12 출력
+        - select **floor(-12.3456)** from dual; → -13 출력
+    - LOG : LOG값을 반환한다.
+    - POWER : POWER(m, n) m의 n승을 반환한다.
+    - SIGN : SIGN (n)n<0이면 -1, n=0이면 0, n>0이면 1을 반환한다.
+    - SIN : SINE값을 반환한다.
+    - TAN : TANGENT값을 반환한다.
+    - ROUND : 특정 자릿수에서 반올림한다.
+        - select round (12.12345, 2) → 12.12
+        - select round (12.12345, -1) → 10
+    - **TRUNC** : 특정 자릿수에서 잘라낸다. (버림)
+        - select trunc (12.3456,2) → 12.34
+        - select trunc (12.3456,-1) → 10
+    - **MOD** : 입력 받은 수를 나눈 나머지 값을 반환한다.
+        - select **MOD (27,2)** from dual; → 1
+        - select * from emp **where mod (empno,2);** = 1; → where에서 쓰는방법
+- 문자 처리 함수
+    - **LOWER** : 소문자로 변환한다 / **UPPER** : 대문자로 변환한다
+        - select upper(‘Welcome to Oracle’) from dual;
+        - select * from emp **where** job=**upper('manager');** → where 절 쓰는법
+        - select * from emp **where lower(job)**='manager'; → where 절 쓰는법
+    - **INITCAP** : 첫 글자만 대문자로 나머지 글자는 소문자로 변환한다.
+        - select initcap(‘welcome to oracle’) from dual; → Welcome To Oracle
+    - CONCAT : 문자의 값을 연결한다.
+    - **SUBSTR** : 문자를 잘라 추출한다. (한글 1Byte)
+        - select **substr(‘Welcome to Oracle’, 4,3)** → com
+        - select s**ubstr(‘Welcome to Oracle’, -4,3)** → acl
+        - select * from emp where **substr(hiredate, 4, 2)** = **‘09’**;
+            - 09, 9 모두 가능함 (**자동형변환 가능**, 하지만 속도는 느려짐)
+            - 비교하려는 대상과 타입을 맞춰주는게 좋음
+    - SUBSTRB : 문자를 잘라 추출한다. (한글 3Byte)
+    - **LENGTH** : 문자의 길이를 반환한다.(한글 1Byte)
+        - select **length(’Oracle’)** from dual;
+    - **LENGTHB** : 문자의 길이를 반환한다. (한글 3Byte)
+        - select **lengthb(’Oracle’)** from dual;
+    - **INSTR** : 특정 문자가 나타나는 위치를 찾아줌
+        - select **insrt(’welcome to oracle’, ‘O’, 6, 2)** from dual; → 12(6번째 글자부터 두번째 O)
+        - select * from emp where instr(ename,’R’)=3; → where에 쓰는 방법
+    - **LPAD** : **함수는 오른쪽**에 나타내고, 남은 **왼쪽 자리**를 **특정 기호로 채웁니다 / RPAD**
+    - **TRIM** : 공백 문자를 잘라냄
+        - select **trim(’  Oracle  ‘)** from dual;
+    - **REPLACE** : 문자를 바꾸는 함수
+        - select **replace(’abcde’, ‘ab’, ‘**’)** from dual; → **bcd
+        - select **replace (ename, substr(1,2), ‘**’)** from emp; → 1,2번째 문자가 전부 **로 바뀜
+    - **SYSDATE** : 날짜를 반환하는 함수
+        - select **trunc(sysdate-hiredate)||'일'** as "근무일수" from emp;
+- 형 변환 함수
+    - **TO_CHAR** : 날짜형 혹은 숫자형을 문자형으로 변환한다.
+        - select **to_char(sysdate, 'yyyy"년" mm"월" dd"일 "day')** from dual; → “ “ 주의
+    - **TO_DATE** : 문자형을 날짜형으로 변환한다.
+    - **TO_NUMBER** : 문자형을 숫자형으로 변환한다.
