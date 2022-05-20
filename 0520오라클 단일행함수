@@ -1,0 +1,18 @@
+# 0520 / 오라클 단일행 함수
+
+# 단일행 함수
+
+- 날짜 함수
+    - **TO_CHAR**
+        - **to_char(sysdate,'YYYY"년"MM"월"DD"일" DAY AM HH:MI:SS')** from dual
+        
+        | AM 또는 PM | 오전(AM), 오후(PM) 시각 표시 |
+        | --- | --- |
+        | HH또는 HH12 | 시간(1~12) |
+        | HH24 | 24시간으로 표현(0~23) |
+        | MI | 분 표현 |
+        | SS | 초표현 |
+        
+        - “” VS ‘’
+            - “” : 컬럼명 바꿀때 ( as “MANAGER”) / as MANAGER 이렇게 써도 됨
+            - ‘’ : 문자 삽입
