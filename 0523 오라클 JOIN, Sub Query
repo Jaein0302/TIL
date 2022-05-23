@@ -1,0 +1,127 @@
+
+# JOIN
+
+- JOIN (한개 이상의 테이블에서 데이터를 조회하기 위해 사용되는 것)
+    - **Equi Join** (동일 칼럼을 기준)
+        - select E.ename, D.dname, E.deptno **from emp E, dept D 
+        where E. deptno = D. deptno 
+        and ename = ‘SCOTT’;**
+        - select E.ename, E.job
+        **from emp E, emp M
+        where M.empno = E.mgr   →  같은 형식인 것을 인지**
+        and M.ename = 'KING';
+        - select E.ename, D.ename
+        from emp E, emp D
+        **where E.deptno = D.deptno  → 같은 근무지 구하는거였는데 table 보면서 확인
+        and E.ename = 'SCOTT'
+        and D.ename != 'SCOTT'**
+    - **Non-Equi Join**  (동일 칼럼 없이 다른 조건을 기준)
+        - select grade,
+        **listagg(ename,',') within group(order by ename) "LISTAGG"
+        from emp, salgrade**
+        **where sal between losal and hisal**
+        group by grade
+    - **Outer Join** (조인 조건에 만족하지 않는 행도 나타낸다)
+        - Left outer join
+            - select E.ename "사원", M.ename "매니저"
+            from emp E, emp M
+            **where E.mgr = M.empno(+);**
+        - Right outer join
+            - select E.ename "사원", M.ename "매니저"
+            from emp E, emp M
+            **where E.mgr(+) = M.empno;**
+            - select ename, D.deptno, dname
+            from emp E, dept D
+            **where E.deptno(+) = D.deptno**
+        - Full outer join
+            - select E.ename "사원", M.ename "매니저"
+            from emp E, emp M
+            **where E.mgr(+) = M.empno(+);**
+    - **Self Joi**n (한 테이블 내에서 조인)
+        - select RPAD(E.ename,6) “사원이름”, M.ename “매니저이름”
+            
+            **from EMP E, EMP M**
+            
+            **where E.mgr = M.empno;**
+            
+        - select M.ename "매니저 이름", listagg(E.ename,',') within group (order by E.ename) "사원이름", count(**) || '명' "인원수"
+        **from emp E, emp M
+        where E.mgr = M.empno**
+        **group by M.enam**e;   → **왜 그룹을 써야하지? 왜냐하면 emp E, emp M에서 범위가 축소 되었기 때문에 count(*)는 오류가 생김***
+        - select M.ename "매니저 이름", listagg(E.ename,',') within group (order by E.ename) "사원이름", count(**) || '명' "인원수"
+        **from emp E, emp M
+        where E.mgr = M.empno
+        group by M.ename
+        having count(*) <=3;**
+- ANSI Join
+    - select * from emp, dept; → select * from emp **cross join** dept;
+    - select ename, dname
+        
+        from emp**,** dept 
+        
+        **where** emp.deptno = dept.deptno
+        
+        **and**  ename=’SCOTT’;
+        
+        →  select ename, dname .
+        
+        from emp **inner join** dept 
+        
+        **on** emp.deptno = dept.deptno;   
+        
+    - **on** emp.deptno = dept.deptno → **using (deptno)**
+        - select절에서 D.deptno X → deptno **(컬럼명만 기술)**
+    - select ename, dname
+        
+        from emp **natural join** dept;
+        
+    - SELECT * FROM table1 **[LEFT | RIGHT | FULL] Outer Join** table2
+
+# Sub Query
+
+- 단일행 (수행결과가 오직 하나의 행만을 반환)
+    - select ename, deptno
+    from emp
+    where deptno **= (select deptno
+                               from emp
+                               where ename ='SCOTT');**
+    - select ename, sal
+    from emp
+    where sal **>= (select sal
+                           from emp
+                           where ename = 'SCOTT');**
+    - select ename, deptno
+    from emp
+    where deptno **= (select deptno
+                               from dept
+                               where loc = 'DALLAS')**
+    - select ename, sal
+    from emp
+    where **mgr= (select empno
+                         from emp
+                         where ename ='KING');**
+- 다중행
+    - **IN**
+        - **‘=’**를 만족하는 결과 중 하나라도 일치하면 참
+        - select *
+        from dept
+        where deptno **in (select deptno
+                                   from emp
+                                   where job = 'MANAGER');**
+    - **ANY**
+        - 비교조건이 하나라도 일치하면 참
+    - **ALL**
+        - 비교조건이 모두 일치하면 참
+        - select ename, sal, job
+        from emp
+        where **sal >= all(select sal
+                              from emp
+                              where job = 'SALESMAN')
+        and job != 'SALESMAN'**
+    
+
+- 오류
+
+ORA-01756 : quoted string not properly terminated : 작은 따옴표 안붙여서 생기는 오류 / 한글 깨져서
+
+ORA-00937 : not a single-group group function : 그룹함수 썼는데 group by절을 사용하지 않아서/
