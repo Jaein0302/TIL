@@ -1,3 +1,5 @@
+# 0525 / DML, CONSTRAINT, VIEW
+
 # 과제 리뷰
 
 - from 절에 서브쿼리 쓰기 (4번) → 만들어진 테이블을 불러와서 select
@@ -119,13 +121,13 @@ NOT NULL 조건과 UNIQUE 조건을 결합한 형태이다. |
         - CREATE TABLE EMP03(
         EMPNO NUMBER(4)
             
-               **CONSTRAINT** EMP03_EMPNO_UK **UNIQUE** );
+            **CONSTRAINT** EMP03_EMPNO_UK **UNIQUE** );
             
     - **PRIMARY KEY**
         - CREATE TABLE EMP050 (
         EMPNO NUMBER(4)
             
-               **CONSTRAINT EMP05_EMPNO_PK PRIMARY KEY );**
+            **CONSTRAINT EMP05_EMPNO_PK PRIMARY KEY );**
             
     - **FOREIGN KEY**
         - 반드시 **부모 테이블에 존재하는 column만** 입력하도록 참조하는 방법
@@ -190,12 +192,10 @@ NOT NULL 조건과 UNIQUE 조건을 결합한 형태이다. |
         from emp
         where deptno=20;
     
-
-- insert into dept
-values(10,'TEST','SEOUL')
+    # 오류종류
+    
 - ORA-00001: unique constraint (SCOTT.PK_DEPT) violated →PK_DEPT (제약조건 이름)
     - dept는 primary key라서 중복 X, null X
-    
 - ORA-01400: cannot insert NULL into ("SCOTT"."EMP02"."EMPNO")
     - SCOTT이라는 owner, EMP02라는 테이블, EMPNO라는 컬럼
 - ORA-00001: unique constraint (SCOTT.SYS_C007194) violated
