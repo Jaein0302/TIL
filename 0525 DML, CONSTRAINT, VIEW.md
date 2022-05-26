@@ -1,4 +1,3 @@
-# 0525 / DML, CONSTRAINT, VIEW
 
 # 과제 리뷰
 
@@ -192,7 +191,7 @@ NOT NULL 조건과 UNIQUE 조건을 결합한 형태이다. |
         from emp
         where deptno=20;
     
-    # 오류종류
+  # 오류종류
     
 - ORA-00001: unique constraint (SCOTT.PK_DEPT) violated →PK_DEPT (제약조건 이름)
     - dept는 primary key라서 중복 X, null X
