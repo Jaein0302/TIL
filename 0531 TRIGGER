@@ -1,0 +1,50 @@
+
+- TRIGGER
+    - 시퀀스를 이용한 트리거
+        
+        CREATE OR REPLACE **TRIGGER** TRG_02
+        AFTER **INSERT**
+        ON EMP01
+          FOR EACH ROW
+            BEGIN
+              INSERT INTO SAL01 VALUES (
+                **SAL01_SALNO_SEQ.NEXTVAL, 100, :NEW.EMPNO**);
+        END;
+        /
+        
+    - 입고 트리거
+        
+        create or replace trigger trg04
+        after insert on 입고
+        for each row
+        begin
+          update 상품
+          **set 재고수량 = 재고수량 + :new.입고수량**
+          where 상품코드 = :new.상품코드;
+        end;
+        /
+        
+    - 입고 갱신 트리거
+        
+        create or replace trigger trg05
+        after **update** on 입고
+        for each row
+        begin
+          update 상품
+          **set 재고수량 = 재고수량 - :old.입고수량
+                                                  +:new.입고수량**
+          where 상품코드 = :new.상품코드;
+        end;
+        /
+        
+    - 삭제 트리거
+        
+        create or replace trigger trg06
+        after **delete** on 입고
+        for each row
+        begin
+          update 상품
+          **set 재고수량 = 재고수량 - :old.입고수량**
+          where 상품코드 = :old.상품코드;
+        end;
+        /
