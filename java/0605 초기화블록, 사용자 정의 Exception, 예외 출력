@@ -1,0 +1,67 @@
+
+- **초기화 블록**
+    - 왜 쓰는지?
+        - 중복된 코드를 제거하여 코드가 간결해짐
+    - 클래스 초기화 블록
+        - **static { System.out.println("static 클래스"); }**
+        - 한번만 수행
+    - 인스턴스 초기화 블록
+        - **static { System.out.println("static 클래스"); }**
+        - 인스턴스를 생성할때마다 수행
+- **사용자 정의 Exception**
+    - 왜 쓰는지?
+        - 클래스의 이름만으로 어떤 오류가 발생했는지알려주어 코드의 직관성을 높인다.
+    - 2가지 종휴의 exception을 상속받을 수 있다
+        - **Exception** → Checked Exception으로 예외처리를 꼭 해줘야 함
+        - **RuntimeException** → Unchecked Exception으로 예외처리가 필요없다
+    - 예시
+        - BizException 클래스 생성 후 RuntimeException으로부터 상속 받음
+        - 예외 발생시 나오는 메세지와 Exception명도 **super**를 통해 조상 클래스 호출해야함
+        
+        ```java
+        public class BizException extends RuntimeException {
+        	public BizException (String msg) {
+        		super(msg);
+        	}
+        	public BizException (Exception ex) {
+        		super(ex);
+        	}
+        }
+        ```
+        
+        ```java
+        public class BizService {
+        	public void bizMethod (int i) throws BizException {
+        		System.out.println("비즈니스 로직이 시작합니다");
+        		if (i<0) {
+        			throw new BizException("매개변수 i는 0이상어야 합니다");
+        		}
+        		System.out.println("비즈니스 로직이 종료됩니다");
+        	}
+        }
+        ```
+        
+        ```java
+        public class BizExam {
+        	public static void main(String[] args) {
+        		BizService biz = new BizService();
+        		biz.bizMethod(5);
+        		try {
+        			biz.bizMethod(-3);
+        		} catch (Exception ex) {
+        			ex.printStackTrace();
+        		}
+        	}
+        }
+        ```
+        
+- **예외 출력**
+    - **toString()** : 에러의 Exception 내용과 원인을 출력합니다.
+        - System.out.println(e.toString());
+            - java.lang.ArithmeticException: / by zero 으로 출력
+    - **getMessage()** : 에러의 원인을 간단하게 출력합니다
+        - System.out.println(e.getMessage());
+            - / by zero 으로 출력
+    - **printStackTrace()** : 에러의 발생근원지를 찾아서 단계별로 에러를 출력합니다
+        - e.printStackTrace();
+            - at EX.BizExam.main(BizExam.java:8) 으로 출력
