@@ -1,0 +1,42 @@
+# 0612
+
+- **Date**
+    - 지역화를 고려하지 않음. jdk1.0부터 지원을 해왔었고, deprecated된 것들이 많기 때문에 쓰기전에 유의
+    - 특정 시점으로부터 현재시간까지 걸린 시간 구하기
+        
+        **Date** date = **new Date();**
+        long today = **System.currentTimeMillis();**
+        System.out.println(today);
+        System.out.println(today - **date.getTime()**);
+        
+- **Calendar**
+    - 지역화를 고려하고, jdk1.1부터 지원을 해왔다
+    - Calendar는 추상클래스라서 객체 생성이 안된다.
+        - 나중에 Gregorian이 아닌 새로운 형식의 표준달력이 생길 수도 있기 때문에 추상으로 남겨놓음
+- **DateTime**
+    - java se8부터 지원을 해옴
+    - Date와 Calendar의 단점을 개선
+    - 현재날짜정보
+        
+        **LocalDateTime** timepoint = **LocalDateTime.now();**
+        
+    - 특정날짜
+        
+        **LocalDate** d1 = **LocalDate.of**(2012, Month.DECEMBER, 12);
+        
+    - 특정시간 (시간, 분)
+        
+        **LocalTime** d2 = **LocalTime.of**(17, 18);
+        
+    - 특정시간 (시간, 분, 초)
+        
+        **LocalTime** d3 = **LocalTime.parse(**"10:15:30");
+        
+    - 현재 날짜
+        
+        **LocalDate** d4 = **timepoint.toLocalDate**();
+        
+    - 현재 월
+        - **timepoint.getMonth**()  →  영어로 월 표현
+        - **Month** month = **timepoint.getMonth**();
+        month.**getValue()**;   →  숫자로 월 표현
