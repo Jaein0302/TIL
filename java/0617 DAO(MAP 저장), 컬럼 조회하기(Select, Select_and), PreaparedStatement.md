@@ -165,8 +165,6 @@
     		conn = DriverManager.getConnection(url, "scott", "tiger");     
             String **sql** = "insert into test (no, name) " + **"values (?, ?)";**
             **pstmt = conn.prepareStatement(sql);   →   원래는 sql문을 다 만들어놓고 excuteQuery()에서 컴파일 했는데, 여기서는 prepareStatement에서 미리 컴파일함**
-
             **pstmt.setInt(1, 900302);**     →    **컴파일한 후에 ? 부분에 대한 내용을 set메서드를 이용하여 입력한다**
             **pstmt.setString(2, “조재인”);
-
             rs = pstmt.executeQuery();     →   문장 실행**
