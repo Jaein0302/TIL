@@ -119,8 +119,7 @@
                     int i = 0;
                     for (String m : menus) {
                         System.out.println(++i + "." + m);
-                    }
-                
+                    }                
                 	    int menu = 0;
                 	    do {
                 		System.out.print("조회할 컬럼을 선택하세요");
@@ -143,8 +142,7 @@
                 if (searchs[i] != null) {
                     String single = "";
                     if (i==1 || i==2 || i==4)
-            	    single = "'";
-            
+            	    single = "'";            
             	**if (sql.contains("where"))
             	    sql += " and ";
             	else
@@ -165,7 +163,6 @@
     		Class.forName("oracle.jdbc.driver.OracleDriver");    **→**   **JDBC 드라이버 도르**
     		String url = "jdbc:oracle:thin:@localhost:1521:xe";    **→**    **DB에 연결**
     		conn = DriverManager.getConnection(url, "scott", "tiger");     
-    
             String **sql** = "insert into test (no, name) " + **"values (?, ?)";**
             **pstmt = conn.prepareStatement(sql);   →   원래는 sql문을 다 만들어놓고 excuteQuery()에서 컴파일 했는데, 여기서는 prepareStatement에서 미리 컴파일함**
 
