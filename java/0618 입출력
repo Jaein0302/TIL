@@ -1,0 +1,72 @@
+# 0618
+
+- DataInputStream, DataOutputStream
+    - 다양한 타입을 입력하고 출력할때 쓰임
+    - **DataInputStream 예시**
+        - **FileInputStream**으로 파일을 **byte**로 받고, **DataInputStream**에 의해 **다양한 타입**으로 입력한다
+        - public static void main(String[] args) {
+            try (
+                DataInputStream out = new **DataInputStream**(new **FileInputStream**("src/_pg_DataOutputStream/data.txt"));
+            ){
+                int i = out.readInt();
+                boolean b = out.readBoolean();
+                double d = out.readDouble();
+        
+        	System.out.println(i);
+        	System.out.println(b);
+        	System.out.println(d);
+        
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+    - **DataOutputStream 예시**
+        - **DataOutputStream**에 의해 **다양한 타입**으로 출력하고, **FileOutputStream**에 의해 **byte**로 저장이 된다
+        - public static void main(String[] args) {
+            try (
+                DataOutputStream out = new **DataOutputStream**(new **FileOutputStream**("src/_pg_DataOutputStream/data.txt"));
+            ){
+                out.writeInt(100);
+                out.writeBoolean(true);
+                out.writeDouble(50.5);
+            } catch (Exception e) {
+        	e.printStackTrace();
+        	}
+        }
+    - 
+- **InputStreamReader, PrintWriter**
+    - **InputStreamReader**
+        - **InputStreamReader**에 의해 **byte를 String**으로 바꾸고, Buffer로 읽어드린다
+        - public static void main (String [] args) {
+            BufferedReader br = new **BufferedReader** (new **InputStreamReader**([System.in](http://system.in/)));  
+            String line = null;
+            try {
+        	line = br.**readLine();**
+            } catch (IOException e) {
+        	e.printStackTrace();
+            }
+            System.out.println(line);
+        }
+    - **PrintWriter**
+        - **PrintWriter**에 의해 입력받은 **String을 byte**으로 바꾸고,
+        - public static void main (String [] args) {
+            BufferedReader br = null;
+            PrintWriter pw = null;
+            try {
+                br = new BufferedReader (new FileReader("src/_pg_DataOutputStream/ex.java"));
+                pw = new PrintWriter (new FileWriter ("src/_pg_PrintWriter/test.txt"));   //  String -> byte
+                String line = null;
+                while((line = br.readLine()) != null) {
+                    pw.println(line);   //  String을 byte로 바꿔서 출력(버퍼 다찰때까지 기다렸다가 출력)
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            pw.close();
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+        	}
+            }
+        }
