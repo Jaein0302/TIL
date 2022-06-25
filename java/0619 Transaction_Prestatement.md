@@ -1,4 +1,4 @@
-# 0620
+# 0619
 
 - **Transaction_Prestatement**
     - Transaction : 논리적인 작업단위
