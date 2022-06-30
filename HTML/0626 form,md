@@ -1,0 +1,84 @@
+# 0626 HTML
+
+## **Form**
+
+- **form 요소의 사용**
+    - 회원가입, 상품구매, 키워드 검색 등 **사용자로부터 정보**를 받을때 사용자와 애플리케이션이 상호작용
+    - 사용자가 원하는 내용 **입력** → 전송버튼을 통해 **데이터 전송** → 애플리케이션으로 전달 → 작업처리 후에 **실행결과를 반환**
+- **fom 요소의 역할**
+    - 사용자가 **입력하는 정보**를 하나로 묶어서 **애플리케이션에 전달**할 수 있도록 다양한 입력 양식을 그룹핑하고 전송방법을 설정
+- **ID / PASSWORD 창**
+    - **<form** **method**=**"post"** **action**="ex16_result.html">  
+        아이디 :  <**input type** ="**text**" **name**="id" **value**="...id 입력..."><br>
+        비밀번호 : <**input type**="**password**" **name**="pwd" **maxLength**="3"><br>
+        <**input type**="**hidden**" **name**="hide" **value**="안보여"><br>  
+        <**input type** ="**submit**" **value**="회원가입">
+    **</form>**
+        - **method**
+            - **"get"**→ url에 정보가 담겨서 전송
+            - **“post”**  →  url에 정보가 없음
+        - **action** → 사용자가 입력한 데이터를 전송할 웹서버의 URL
+        - **input type**
+            - **“text”**  →   텍스트를 입력받을 수 있는 텍스트 박스 생성
+            - **"password"**  →  입력된 글자가 노출되지 않는 텍스트 박스 생성
+            - "**hidden**"  →  사용자에게는 보이지 않는 숨겨진 입력 필드
+            - **"submit"**  →  입력받은 데이터를 웹서버로 전송하기
+        - **name**
+            - 해당 form의 이름을 명시 (참조하기 위해 사용)
+        - **value**
+            - 타입마다 용도가 달라진다
+                - **text, password, hidden** : 입력 필드의 **초기값**을 정의
+                - **button, reset, submit** : **버튼 내의 텍스트**를 정의
+                - **checkbox, image, radio, select** : 해당 입력 필드를 선택 시 **서버로 제출되는 값**을 정의 (url에서 확인 가능)
+- **다양한 선택 입력**
+    - <**input type** ="**radio"** name="member" value="yes" **checked**>회원
+        - "**radio"**  →   하나만 선택가능
+        - **checked**  →  기본값으로 설정
+    - <**input type** =**"checkbox"** name="hobby" value="read">독서
+        - **"checkbox"**  →  다중 선택가능
+    - **<select** name="job1" **size**="4" **multiple**>
+        **<option** value = "student" **selected>**학생**</option>**
+        **<option** value = "others" >기타**</option>**
+    **</select>**
+        - **<select>**  →  드롭다운 리스트
+        - **size**  →  콤보 박스에서 보일 수 있는 최대 항목의 개수 (기본값은 1)
+        - **multiple**  →   다수 항목 선택 가능
+        - **selected**  →  초기값
+    - <**input type**="**reset**" value="초기화">
+        - “**reset”**  →  선택사항을 기본값으로 초기화
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9c7f3df7-fb9f-4028-85d0-3b269754aebd/Untitled.png)
+        
+- **button**
+    - <form method="get" action="ex16_result.html">
+         **<button>**button 태그**</button>  →   button의 기본 type은 submit**
+         **<button type="reset">**button 태그 type="reset"**</button>**
+    </form>
+- **file**
+    - <input type="**file**" name=myfile >
+        - 파일 업로드 기능
+- **textarea**
+    - **<textarea** name="comments" rows="4" cols="40">  **</textarea>**
+        - 문자를 쓸 수 있는 빈칸이 생김
+        - 
+- **label**
+    - **label태그의 for속성값**과 **input태그의 id속성값**이 같으면 **라벨(남성)의 텍스트**를 클릭해도 선택이 가능한다
+        - **<label for="male">남성**</label>
+        <input type="radio" name="gender" **id="male"** value="male" checked>
+            
+            ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b885ec47-e0ad-46db-bc85-aadaeeb86eaa/Untitled.png)
+            
+    - **label 태그**안에 **input태그**를 작성해도 된다
+        - **<label>** **남성**
+              **<input** type="radio" name="gender" id="male" value="male" checked>
+        **</label>**
+    - **이미지**도 마찬가지로 **label 태그**안에 넣으면 됨
+        - **<label>**
+             <input type="radio" name="menu" value="짜장면">
+             짜장면 **<img** src="image/jajang.png" width="70" height="50">
+        **</label>**
+    - **file 타입**도 마찬가지로 **label 태그**안에 넣으면 됨
+        - **<label>**
+             <img src="image/jajang.png" width="70" height="50">
+             **<input type="file"** name="fileuploard" style="display:none">
+        **</label>**
