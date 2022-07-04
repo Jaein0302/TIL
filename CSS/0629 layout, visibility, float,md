@@ -1,0 +1,96 @@
+# 0629 layout, visibility, float
+
+- **position**
+    - **position : absolute;**
+        - 절대위치 - 원하는 위치에 배치
+    - **position : relative;**
+        - 상대위치 - 원래 위치를 기준으로 배치
+    - **position : fixed;**
+        - 고정위치 - 스크롤을 움직여도 항상 그자리
+    - **position : static;**
+        - 정적위치 - 기본값
+- **visibility VS display**
+    - **visibility: hidden;**
+        - 영역은 차지하고 있지만 보이지 않음
+    - **display : none;**
+        - 영역도 안보임
+- **float**
+    - **부모 요소 영역을 기준**으로 오른쪽 또는 왼쪽에 배치하도록 지정하는 속성
+    - **float 이후**에 오는 엘리먼트는 **그 주변을 채워나간다**
+        - **float : right;**  → 요소가 오른쪽에 배치
+        - **float : left;**  → 요소가 왼쪽에 배치
+        - **clear : right;**  →  float 속성 무효화
+- **border-radius**
+    - 모서리 테두리 모양을 바꿔줌
+- **overflow**
+    - 콘텐츠 박스의 크기보다 **텍스트의 양이 많을 경우 처리 방법**
+    - **overflow: visible;**
+        - 초과된 콘텐츠가 **박스의 아래쪽에 이어서 나타난다**
+    - **overflow: hidden;**
+        - 초과된 콘텐츠가 **잘려서 안보인다**
+    - **overflow: scroll;**
+        - **스크롤바를 이용**해서 볼 수 있다
+    - **overflow: auto;**
+- **opacity**
+    - **투명도 지정** →  0일때 완전 투명이고 1.0일때 완전 불투명
+- **일반구조선택자**
+    - :**first-child**
+        - 형제 관계 중에서 첫번째 위치하는 태그를 선택
+    - :**last-child**
+        - 형제 관계 중에서 마지막에 위치하는 태그를 선택
+    - :**nth-last-child**(수열)
+        - 형제 관계 중에서 뒤에서 수열 번째의 태그를 선택
+    - **:nth-child(숫자)**
+        - 숫자번째 위치하는 태그를 선택(양수)
+    - **예시**
+        - **<body>**
+             <p>나 에요</p>	<!-- 첫번째 자식 -->
+             <p>나 에요</p> 	<!-- 두번째 자식 -->
+             <div class="box"></div>		<!-- 세번째 자식 -->
+             <p>나 에요</p>	<!-- 네번째 자식 -->
+             <div class="box"></div>		<!-- 다섯번째 자식 -->
+             <div class="box"></div>		<!-- 여섯번째 자식 -->
+        **</body>**
+        - **.box:nth-child**(3n+1)
+            - box의 부모인 **body를 기준**으로 child의 순서를 정함
+- **z-index**
+    - **z-index의 크기가 커질수록** 겹쳐있을때 **앞단에 위치함**
+- **부모상대위치지정**
+    - **absolute** 값을 갖는 요소는 
+    자신의 **부모 혹은 조상 요소중**에 **relative 속성이 있는 것**을 찾아 그 객체를 **좌표의 기준**으로 삼는다
+    만약 **부모 중에** position이 **relative 속성이 없으면** 가장 위의 태그인 **body태그**를 기준으로 삼는다
+    - 예시
+        - **<body>**
+            <h1> 저는 h1 태그 입니다 </h1>
+            **<div>**
+                **<div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>**
+            **</div>**
+        </body>
+        - **body > div**를 **relative**로 지정하면 
+        **box 클래스** 3개는 모두 **body>div**의 좌표를 기준으로 삼는다
+- **Transition**
+    - #koala:hover {
+        border: thin solid red;
+        width: 108px;
+        height: 132px;
+        **transition: width 4s;  → 폭이 4초동안 점진적으로 변한다**
+    }
+- **animation**
+    - animation 작성 방법
+        - **animation-name**
+            - 애니메이션이름(@keyframes의 name 지정);
+        - **animation-duration**
+            - 1회 애니메이션시간;
+        - **animation-iteration-count**
+            - 애니메이션 반복 횟수(숫자 또는 infinite인 경우 무한 반복)
+    - **예시**
+        - #koala { **animation**: **koalamove 6s 2**; position: relative; }
+- **transform**
+    - **transform: rotate(-45deg);**
+        - 45도로 회전
+    - **transform: translateY(100px);**
+        - 100px만큼 y축으로 이동
+    - **transform: scale(4,2);**
+        - 기존보다 x축으로 4배, y축으로 2배 확대
